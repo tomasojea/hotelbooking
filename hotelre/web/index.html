@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="hotelestilo.css">
+    </head>
+    <body>
+        <form action="Controlador">
+            Hotel:
+
+            <!--<input type = "submit" value = "Submit" />-->
+            
+            <select  id="hoteles" name="hoteles" id="hoteles">
+
+                <option value="1">HollydayInn</option>
+                <option value="2">Sheraton</option>
+                <option value="3">CincoEstrellas</option>
+                <option value="4">CuatroEstrellas</option>
+                <option value="5">DosEstrellas</option>
+
+            </select>
+            <br>
+            <br>
+            Numero de Noches:
+            <br>
+            <br>
+            
+            <input type="number" name="numNoches" id="numNoches">
+            <br>
+            <br>
+            Tipo de Habitacion:
+            <br>
+            <br>
+            <select id="tipHab" name="tipHab" id="tipHab">
+
+                <option value="camasimple ">Cama Simple</option>
+                <option value="camadoble">Cama Doble</option>
+                <option value="doscamasdoble">Dos Camas Dobles</option>
+
+
+            </select>
+            <br>
+            <br>
+            Fecha de Llegada:
+            <br>
+            <br>
+            <input type="date" name="fechallegada" id="fechallegada">
+            <br>
+            <br>
+            Menores de dos años:
+            <br>
+            <br>
+            <input type="number" min="0" name="numMenores" id="numMenores">
+            <br>
+            <br>
+            Menores de doce años:
+            <br>
+            <br>
+            <input type="number" min="0" name="numMenoresdoce" id="numMenoresdoce">
+            <br>
+            <br>
+            Adultos:
+            <br>
+            <br>
+            <input type="number" min="0" name="numadultos" id="numadultos">
+            <br>
+            <br>
+            <input class="estilo" type="button" onclick="loadDoc()" value="Obtener Precio" >
+            <input class="estilo" type="submit"  value="Redireccion" >
+            
+           
+            
+            <!--cambie el type="button" por el type="submit" y le quite el atributo  onclick  -->
+            <br>
+
+            <!--<button onclick="">Try it</button>-->
+        </form>
+
+        <div  id="respuesta" >
+
+        </div>
+        <script>
+            
+            function loadDoc() {
+                
+                var persona = {}; // new Object();
+                persona.hot = document.getElementById("hoteles").value;
+                persona.numN = document.getElementById("numNoches").value;
+                persona.tipH = document.getElementById("tipHab").value;
+                persona.fechl = document.getElementById("fechallegada").value;
+                persona.num = document.getElementById("numMenores").value;
+                persona.numd = document.getElementById("numMenoresdoce").val;
+                persona.numa = document.getElementById("numadultos").value;
+                //alert(document.getElementById("numadultos").value);
+                // formato del mensaje en JSON
+                var personaStringJSON = JSON.stringify(persona);
+
+                                
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "Controlador", true);
+                xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        document.getElementById("respuesta").innerHTML ="<p>"+"</p>";
+                        document.getElementsByTagName("P").innerHTML ="El precio de su reserva es de:";
+                        document.getElementById("respuesta").innerHTML = "<div id='precio' class='card precio' >" + this.responseText + "</div>" ;
+                        
+                    }
+
+                };
+
+                
+                xhttp.send(personaStringJSON);
+                //document.getElementsByTagName("FORM").submit();
+            }
+
+            
+        </script>
+    </body>
+</html>

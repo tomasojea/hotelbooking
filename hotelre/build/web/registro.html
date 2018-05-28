@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="formvalidator.js"></script>    
+        <script type="text/javascript" src="prueba2.js"></script>   
+        <link rel="stylesheet" type="text/css" href="hotelestilo.css">
+    </head>
+    <body>
+        <form onsubmit="return validateFormOnSubmit(this)" action ="Controlador">
+
+            <label for="nombre"><b>Nombre:</b></label><br>
+            <input type="text" placeholder="Ingrese Nombre" name="Nombre" id="Nombre" required><br><br>
+            <label for="apellido"><b>Apellido:</b></label><br>
+            <input type="text" placeholder="Ingrese Apellido" name="Apellido" id="Apellido"  required><br><br>
+            <label for="direccion"><b>Direccion:</b></label><br>
+            <input type="text" placeholder="Ingrese Direccion" name="Direccion" id="Direccion" required><br>
+            <br/><b>Select Country (with states):</b><br/>
+            <select id="Pais" name="pais"></select><br/>
+            <br/><b>State:</b>
+            <select name="provincia" id="Provincia"></select>
+            <br/>
+            
+            <br/>
+           
+            <!--<label for="provincia"><b>Provincia:</b></label><br>
+                        <input type="text" placeholder="Ingrese Provincia" name="provincia" required><br><br>
+                        <label for="pais"><b>Pais:</b></label><br>
+                        <input type="text" placeholder="Ingrese Pais" name="pais" required><br><br>-->
+            <label for="codigopostal"><b>Codigo Postal:</b></label><br>
+            <input type="text" placeholder="Ingrese Codigo Postal" name="CodigoPostal" id="CodigoPostal" required><br><br>
+            <label for="telefono"><b>Telefono:</b></label><br>
+            <input type="text" placeholder="Ingrese Telefono" name="Telefono" id="Telefono" required><br><br>
+            <label for="movil"><b>Movil:</b></label><br>
+            <input type="text" placeholder="Ingrese Movil" name="Movil" id="Movil" required><br><br>
+            <label for="telefono"><b>Mail:</b></label><br>
+            <input type="text" placeholder="Ingrese Mail" name="Mail" id="Mail" required><br><br>
+
+
+
+             <input class="estilo" type="button" onclick="loadDoc()" value="Aceptar" >
+          
+        </form>
+         <script>
+                populateCountries("Pais", "Provincia");
+                populateCountries("country2");
+                
+                function loadDoc() {
+                
+                var cliente = {}; // new Object();
+                cliente.Nombre = document.getElementById("Nombre").value;
+                cliente.Apellido = document.getElementById("Apellido").value;
+                cliente.Direccion = document.getElementById("Direccion").value;
+                cliente.Pais = document.getElementById("Pais").value;
+                cliente.Provincia = document.getElementById("Provincia").value;
+                cliente.CodigoPostal = document.getElementById("CodigoPostal").value;
+                cliente.Telefono = document.getElementById("Telefono").value;
+                cliente.Movil = document.getElementById("Movil").value;
+                cliente.Telefono = document.getElementById("Mail").value;
+               
+                // formato del mensaje en JSON
+                var clienteStringJSON = JSON.stringify(cliente);
+
+                                
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "resgistro", true);
+                xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                
+                console.log(cliente);
+                
+                xhttp.send(clienteStringJSON);
+                //document.getElementsByTagName("FORM").submit();
+            }
+
+
+            </script>
+    </body>
+</html>
